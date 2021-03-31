@@ -7,7 +7,7 @@ const bigPicture = document.querySelector('.lightbox__image')
 const overlay = document.querySelector('.lightbox__overlay')
 
 
-const imagesLi = galleryItems.map((el,i) =>
+const imagesLi = galleryItems.map((el,index) =>
 `<li class="gallery__item">
   <a
     class="gallery__link"
@@ -18,7 +18,7 @@ const imagesLi = galleryItems.map((el,i) =>
       src=${el.preview}
       data-source=${el.original}
       alt=${el.description}
-      data-index=${i}
+      data-index=${index}
     />
   </a>
 </li>`).join('')
@@ -37,6 +37,7 @@ const closeModal = (event) => {
   window.removeEventListener('keyup', onEscClose)
   window.removeEventListener('keydown', onArrowsClick)
 }
+
 const onOverlayClose = (event) => {
   if (event.target === overlay) {
     closeModal()
@@ -48,31 +49,7 @@ const onEscClose = (event) => {
      closeModal()
   }
  }
-   
-// const onArrowsClick = (event) => {
-//   let i = +event.target.firstElementChild.dataset.index;
   
-//   if (event.code === 'ArrowLeft' && i > 0) {
-//     console.log('left');
-//     i -= 1
-//     muvSlider(event,i)
-     
-//   } else if (event.code === 'ArrowLeft' && i===0) {
-//     i = galleryItems.length-1
-//     muvSlider(event,i)
-  
-//   }
-//   else if (event.code === 'ArrowRight' && i < galleryItems.length - 1) {
-//     console.log('Right');
-//     i += 1
-//     muvSlider(event,i)
-//   }
-//   else if (event.code === 'ArrowRight' && i===galleryItems.length - 1) {
-//     i = 0
-//     muvSlider(event,i)
-//   }
-
-// }
 
 const onArrowsClick = e =>{
 let i = +e.target.firstElementChild.dataset.index;
@@ -94,8 +71,6 @@ let i = +e.target.firstElementChild.dataset.index;
   }
 }
 
-
-
 const muvSlider = (event,index) => {
   event.target.firstElementChild.dataset.index = index
   bigPicture.src = galleryItems[index].original
@@ -108,7 +83,6 @@ const modalFn = (event) => {
   }
   bigPicture.src = event.target.dataset.source;
   bigPicture.alt = event.target.alt;
-  // bigPicture.dataset.index = event.target.dataset.index;
   onModalOpen()
 }
 
